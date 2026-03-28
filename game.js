@@ -193,8 +193,7 @@ class Game {
             if (
               !this.pieces.some(
                 (p) =>
-                  p.col === this.clicked.col - 2 &&
-                  p.row === this.clicked.row - 2,
+                  p.col === this.clicked.col && p.row === this.clicked.row - 2,
               )
             ) {
               this.moves.push({
@@ -202,18 +201,13 @@ class Game {
                 row: this.clicked.row - 2,
               });
             }
-            this.moves.push({
-              col: this.clicked.col,
-              row: this.clicked.row - 1,
-            });
           }
         } else {
           if (this.clicked.row === 1) {
             if (
               !this.pieces.some(
                 (p) =>
-                  p.col === this.clicked.col + 2 &&
-                  p.row === this.clicked.row + 2,
+                  p.col === this.clicked.col && p.row === this.clicked.row + 2,
               )
             ) {
               this.moves.push({
@@ -221,10 +215,6 @@ class Game {
                 row: this.clicked.row + 2,
               });
             }
-            this.moves.push({
-              col: this.clicked.col,
-              row: this.clicked.row + 1,
-            });
           }
         }
       }
