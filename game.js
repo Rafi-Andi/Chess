@@ -72,6 +72,7 @@ class Game {
       this.pieces.push(new Pawn(i, 1, "black"));
     }
 
+    this.pieces.push(new Pawn(2, 4, "black"));
     this.pieces.push(new Knight(1, 7, "white"));
     this.pieces.push(new Knight(6, 7, "white"));
     this.pieces.push(new Knight(1, 0, "black"));
@@ -176,43 +177,58 @@ class Game {
 
     if (this.clicked instanceof Pawn) {
       const dy = this.clicked.color === "white" ? -1 : 1;
-      if (this.clicked.color === "white") {
-        if (this.clicked.row === 6) {
-          this.moves.push({
-            col: this.clicked.col,
-            row: this.clicked.row - 2,
-          });
-          this.moves.push({
-            col: this.clicked.col,
-            row: this.clicked.row - 1,
-          });
-        }
-      } else {
-        if (this.clicked.row === 1) {
-          this.moves.push({
-            col: this.clicked.col,
-            row: this.clicked.row + 2,
-          });
-          this.moves.push({
-            col: this.clicked.col,
-            row: this.clicked.row + 1,
-          });
-        }
-      }
-
-      const pieceFront = this.pieces.some(
+      const pieceFront = this.pieces.find(
         (p) =>
           p.col === this.clicked.col &&
           p.row === this.clicked.row + dy &&
           p.color !== this.clicked.color,
       );
-      console.log(pieceFront);
       if (!pieceFront) {
         this.moves.push({
           col: this.clicked.col,
           row: this.clicked.row + dy,
         });
+        if (this.clicked.color === "white") {
+          if (this.clicked.row === 6) {
+            if (
+              !this.pieces.some(
+                (p) =>
+                  p.col === this.clicked.col - 2 &&
+                  p.row === this.clicked.row - 2,
+              )
+            ) {
+              this.moves.push({
+                col: this.clicked.col,
+                row: this.clicked.row - 2,
+              });
+            }
+            this.moves.push({
+              col: this.clicked.col,
+              row: this.clicked.row - 1,
+            });
+          }
+        } else {
+          if (this.clicked.row === 1) {
+            if (
+              !this.pieces.some(
+                (p) =>
+                  p.col === this.clicked.col + 2 &&
+                  p.row === this.clicked.row + 2,
+              )
+            ) {
+              this.moves.push({
+                col: this.clicked.col,
+                row: this.clicked.row + 2,
+              });
+            }
+            this.moves.push({
+              col: this.clicked.col,
+              row: this.clicked.row + 1,
+            });
+          }
+        }
       }
+
       const pieceRight = this.pieces.some(
         (p) =>
           p.col === this.clicked.col + 1 &&
