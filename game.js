@@ -72,7 +72,6 @@ class Game {
       this.pieces.push(new Pawn(i, 1, "black"));
     }
 
-    this.pieces.push(new Pawn(2, 4, "black"));
     this.pieces.push(new Knight(1, 7, "white"));
     this.pieces.push(new Knight(6, 7, "white"));
     this.pieces.push(new Knight(1, 0, "black"));
